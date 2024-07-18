@@ -2,6 +2,8 @@
 
 A simple script to generate an SVG badge for your Spotify now playing status.
 
+- can use in github readme (eg;- [Check my profile](https://github/amarnathcjd/amarnathcjd))
+
 ## Requirements
 
 - sp_dc: copy the `sp_dc` cookie from `open.spotify.com` and set it as an environment variable ('SPOTIFY_COOKIE')
