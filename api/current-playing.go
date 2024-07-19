@@ -72,6 +72,12 @@ func getCurrentPlaying(cookie string, svg bool) ([]byte, error) {
 	var currentTrack CurrentTrack
 	json.NewDecoder(resp.Body).Decode(&currentTrack)
 
+	if svg && (currentTrack.Item.Name == "") {
+		svg, _ := base64.StdEncoding.DecodeString(`PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMjAiIGhlaWdodD0iODQiIGFyaWEtbGFiZWxsZWRieT0iY2FyZFRpdGxlIj48Zm9yZWlnbk9iamVjdCB3aWR0aD0iMzIwIiBoZWlnaHQ9Ijg0Ij48c3R5bGU+ZGl2e2ZvbnQtZmFtaWx5Oi1hcHBsZS1zeXN0ZW0sQmxpbmtNYWNTeXN0ZW1Gb250LFNlZ29lIFVJLEhlbHZldGljYSxBcmlhbCxzYW5zLXNlcmlmLEFwcGxlIENvbG9yIEVtb2ppLFNlZ29lIFVJIEVtb2ppfS5wbGF5aW5ne2Rpc3BsYXk6ZmxleDtqdXN0aWZ5LWNvbnRlbnQ6Y2VudGVyO2FsaWduLWl0ZW1zOmNlbnRlcjtjb2xvcjojNTNiMTRmO2ZvbnQtd2VpZ2h0OjcwMDt0ZXh0LWFsaWduOmNlbnRlcjttYXJnaW4tYm90dG9tOjhweH0ubm90LXBsYXl7Y29sb3I6IzU4ZmYxNjt0ZXh0LWFsaWduOmNlbnRlcjttYXJnaW4tYm90dG9tOjB9PC9zdHlsZT48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBjbGFzcz0iY29udGFpbmVyIj48ZGl2IGNsYXNzPSJwbGF5aW5nIG5vdC1wbGF5Ij5Ob3RoaW5nIHBsYXlpbmcgb24gU3BvdGlmeTwvZGl2PjwvZGl2PjwvZm9yZWlnbk9iamVjdD48L3N2Zz4=`)
+
+		return svg, nil
+	}
+
 	result := map[string]interface{}{
 		"timestamp":   currentTrack.Timestamp,
 		"progress_ms": currentTrack.ProgressMs,
