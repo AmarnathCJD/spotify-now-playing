@@ -2,7 +2,7 @@
 
 A simple script to generate an SVG badge for your Spotify now playing status.
 
-- can use in github readme (eg;- <a href='https://github/amarnathcjd'>check my profile</a>)
+- can use in github readme (eg;- <a href='https://github.com/amarnathcjd'>check my profile</a>)
 
 ## Requirements
 
