@@ -4,15 +4,13 @@ A simple script to generate an SVG badge for your Spotify now playing status.
 
 - can use in github readme (eg;- <a href='https://github.com/amarnathcjd'>check my profile</a>)
 
-## Demo
+## Sample - Demo
 
-### V1
+### V1 ->
+   ![Spotify Now Playing](https://spotify-now-playing-psi-silk.vercel.app/api/current-playing?svg=true&s=1)
 
-![Spotify Now Playing](https://spotify-now-playing-psi-silk.vercel.app/api/current-playing?svg=true&s=1)
-
-### V2
-
-![Spotify Now Playing](https://spotify-now-playing-psi-silk.vercel.app/api/current-playing?svg=true&v=2&s=1)
+### V2 ->
+   ![Spotify Now Playing](https://spotify-now-playing-psi-silk.vercel.app/api/current-playing?svg=true&v=2&s=1)
 
 
 ## Requirements
@@ -29,18 +27,18 @@ A simple script to generate an SVG badge for your Spotify now playing status.
 
 #### Markdown
 ```markdown
-![Spotify Now Playing](https://<your-vercel-deployment-url>/api/current-playing?svg=true)
+![Spotify Now Playing](https://<your-vercel-deployment-url>/api/current-playing?svg=true&s=1)
 ```
 
 #### HTML
 ```html
-<img src="https://<your-vercel-deployment-url>/api/current-playing?svg=true" alt="Spotify Now Playing">
+<img src="https://<your-vercel-deployment-url>/api/current-playing?svg=true&s=1" alt="Spotify Now Playing">
 ```
 
 ### JSON Response
 
 ```bash
-curl https://<your-vercel-deployment-url>/api/current-playing
+curl https://<your-vercel-deployment-url>/api/current-playing?s=1
 ```
 
 ## License
