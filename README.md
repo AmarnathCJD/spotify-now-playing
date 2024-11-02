@@ -4,6 +4,17 @@ A simple script to generate an SVG badge for your Spotify now playing status.
 
 - can use in github readme (eg;- <a href='https://github.com/amarnathcjd'>check my profile</a>)
 
+## Demo
+
+### V1
+
+![Spotify Now Playing](https://spotify-now-playing-psi-silk.vercel.app/api/current-playing?svg=true&s=1)
+
+### V2
+
+![Spotify Now Playing](https://spotify-now-playing-psi-silk.vercel.app/api/current-playing?svg=true&v=2&s=1)
+
+
 ## Requirements
 
 - sp_dc: copy the `sp_dc` cookie from `open.spotify.com` and set it as an environment variable ('SPOTIFY_COOKIE')
