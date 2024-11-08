@@ -1,0 +1,265 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="100" aria-labelledby="cardTitle">
+    <foreignObject width="400" height="100">
+        <style>
+            @keyframes sound {
+                0% {
+                    transform: scaleY(0.4);
+                    opacity: 0.6;
+                }
+
+                to {
+                    transform: scaleY(1.8);
+                    opacity: 1;
+                }
+            }
+
+            @keyframes fadeInContainer {
+                0% {
+                    opacity: 0;
+                    transform: translateY(6px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes fadeInText {
+                0% {
+                    opacity: 0;
+                }
+
+                to {
+                    opacity: 1;
+                }
+            }
+
+            @keyframes fadeInSong {
+                0% {
+                    opacity: 0;
+                    transform: translateX(-5px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+
+            @keyframes fadeInArtist {
+                0% {
+                    opacity: 0;
+                    transform: translateX(5px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+
+            @keyframes fadeInBars {
+                0% {
+                    opacity: 0;
+                }
+
+                to {
+                    opacity: 1;
+                }
+            }
+
+            @keyframes popIn {
+                0% {
+                    transform: scale(0.85);
+                    opacity: 0;
+                }
+
+                to {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+            }
+
+            div {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+            }
+
+            .container {
+                display: flex;
+                align-items: center;
+                padding: 12px;
+                border-radius: 12px;
+                background-color: #121212;
+                color: #fff;
+                box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+                animation: fadeInContainer 0.8s ease-out;
+            }
+
+            .cover-link {
+                width: 64px;
+                height: 64px;
+                border-radius: 4px;
+                overflow: hidden;
+                margin-right: 16px;
+                animation: popIn 0.6s ease-out;
+            }
+
+            .text-container {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .now-playing-container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 0;
+            }
+
+            .now-playing {
+                font-size: 10px;
+                font-weight: 700;
+                color: #b3b3b3;
+                opacity: 0.9;
+                animation: fadeInText 0.8s ease-out;
+                display: flex;
+                align-items: center;
+            }
+
+            .song {
+                font-size: 16px;
+                font-weight: 600;
+                color: #fff;
+                margin-bottom: 1px;
+                animation: fadeInSong 1s ease;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+
+            .artist {
+                font-size: 12px;
+                font-weight: 700;
+                color: #b3b3b3;
+                animation: fadeInArtist 1s ease;
+            }
+
+            #bars-and-progress {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                margin-top: 6px;
+            }
+
+            .progress-bar-container {
+                height: 3px;
+                width: 70%;
+                background: rgba(255, 255, 255, 0.2);
+                overflow: hidden;
+                border-radius: 1px;
+                margin-top: 2px;
+                margin-left: 20px;
+            }
+
+            .progress-bar {
+                height: 100%;
+                width: 30%;
+                background-color: #1db954;
+                animation: progress 5s linear infinite;
+            }
+
+            #bars {
+                display: flex;
+                gap: 2px;
+                animation: fadeInBars 1s ease;
+            }
+
+            .bar {
+                background: #1db954;
+                width: 2px;
+                height: 6px;
+                animation: sound 400ms linear infinite alternate;
+                border-radius: 1px;
+            }
+
+            .bar:nth-child(1) {
+                animation-duration: 380ms;
+            }
+
+            .bar:nth-child(2) {
+                animation-duration: 420ms;
+            }
+
+            .bar:nth-child(3) {
+                animation-duration: 350ms;
+            }
+
+            .bar:nth-child(4) {
+                animation-duration: 450ms;
+            }
+
+            .bar:nth-child(5) {
+                animation-duration: 370ms;
+            }
+
+            .bar:nth-child(6) {
+                animation-duration: 480ms;
+            }
+
+            .bar:nth-child(7) {
+                animation-duration: 320ms;
+            }
+
+            .bar:nth-child(8) {
+                animation-duration: 460ms;
+            }
+
+            .bar:nth-child(9) {
+                animation-duration: 400ms;
+            }
+
+            .bar:nth-child(10) {
+                animation-duration: 330ms;
+            }
+        </style>
+
+        <div xmlns="http://www.w3.org/1999/xhtml" class="container">
+            <a href="https://spotify.com" target="_BLANK" class="cover-link">
+                <img xmlns="http://www.w3.org/1999/xhtml" src="data:image/png;base64,{{img}}" width="64" height="64" />
+            </a>
+            <div class="text-container">
+                <div class="now-playing-container">
+                    <div class="now-playing">Now Playing:</div>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 2px;">
+                    <div class="song">{{song}}</div>
+                    <div class="artist">{{artists}}</div>
+                </div>
+                <div id="bars-and-progress">
+                    <div id="bars">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#1DB954" class="bi bi-spotify"
+                viewBox="0 0 16 16">
+                <path
+                    d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.669 11.538a.5.5 0 0 1-.686.165c-1.879-1.147-4.243-1.407-7.028-.77a.499.499 0 0 1-.222-.973c3.048-.696 5.662-.397 7.77.892a.5.5 0 0 1 .166.686m.979-2.178a.624.624 0 0 1-.858.205c-2.15-1.321-5.428-1.704-7.972-.932a.625.625 0 0 1-.362-1.194c2.905-.881 6.517-.454 8.986 1.063a.624.624 0 0 1 .206.858m.084-2.268C10.154 5.56 5.9 5.419 3.438 6.166a.748.748 0 1 1-.434-1.432c2.825-.857 7.523-.692 10.492 1.07a.747.747 0 1 1-.764 1.288" />
+            </svg>
+        </div>
+    </foreignObject>
+</svg>
