@@ -214,6 +214,12 @@ func createSpotifyWidget(currentTrack SpotifyWidget, darkMode bool, version int)
 
 	svgTemplate = strings.Replace(svgTemplate, "{{psec}}", strconv.Itoa(msToSeconds(currentTrack.DurationMs-currentTrack.ProgressMs)), -1)
 
+	frames, steps := progressKeyframes(currentTrack.ProgressMs, currentTrack.DurationMs)
+
+	svgTemplate = strings.Replace(svgTemplate, "{{timeCounter}}", frames, -1)
+
+	svgTemplate = strings.Replace(svgTemplate, "{{keySteps}}", strconv.Itoa(steps), -1)
+
 	imageURL := currentTrack.Image
 	resp, err := http.Get(imageURL)
 	if err != nil {
@@ -254,4 +260,34 @@ func percentageComplete(currentTime, duration int) int {
 
 func msToSeconds(ms int) int {
 	return ms / 1000
+}
+
+// @keyframes timeCounter {
+// 	0% { content: "0:00"; }
+// 	16.67% { content: "0:30"; }
+// 	33.33% { content: "1:00"; }
+// 	50% { content: "1:30"; }
+// 	66.67% { content: "2:00"; }
+// 	83.33% { content: "2:30"; }
+// 	100% { content: "3:00"; }
+// }
+
+func progressKeyframes(currMs, durrMs int) (string, int) {
+	var steps = 0
+	var keyframes strings.Builder
+	keyframes.WriteString("@keyframes timeCounter {\n")
+	// start at current time, then for each remaining second, add kyframe
+	durr := msToSeconds(durrMs)
+	curr := msToSeconds(currMs)
+
+	keyframes.WriteString("0% { content: \"" + msToMMSS(currMs) + "\"; }\n")
+	steps += 1
+	for i := 1; i <= durr-curr; i++ {
+		keyframes.WriteString(fmt.Sprintf("%f%% { content: \"%s\"; }\n", float64(i)/float64(durr)*100, msToMMSS(currMs+i*1000)))
+		steps += 1
+	}
+	keyframes.WriteString("100% { content: \"" + msToMMSS(durrMs) + "\"; }\n")
+	steps += 1
+	keyframes.WriteString("}")
+	return keyframes.String(), steps
 }
