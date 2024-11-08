@@ -226,7 +226,7 @@ func deduceTitlePx(title string) int {
 	if len(title) > 32 && len(title) <= 38 {
 		size = 14
 	} else if len(title) > 38 && len(title) <= 42 {
-		size = 12
+		size = 12 // doesn't make sense Ik, will fix, TODO
 	} else if len(title) > 42 {
 		size = 10
 	}
