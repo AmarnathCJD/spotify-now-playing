@@ -50,17 +50,11 @@ func CurrentPlaying(w http.ResponseWriter, r *http.Request) {
 
 	svg := r.URL.Query().Get("svg") == "true"
 	dark := r.URL.Query().Get("dark") == "true"
-	var SPOTIFY_COOKIE = os.Getenv("SPOTIFY_COOKIE")
-
-	if SPOTIFY_COOKIE == "" {
-		http.Error(w, `{"error": "missing 'SPOTIFY_COOKIE', set your 'sp_dc' cookie from open.spotify.com"}`, http.StatusInternalServerError)
-		return
-	}
 
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 
-	currentPlaying, err := getCurrentPlaying(SPOTIFY_COOKIE, svg, dark, v)
+	currentPlaying, err := getCurrentPlaying(svg, dark, v)
 	if err != nil {
 		http.Error(w, `{"error": "failed to get current playing song: `+err.Error()+`"}`, http.StatusInternalServerError)
 		return
@@ -75,13 +69,17 @@ func CurrentPlaying(w http.ResponseWriter, r *http.Request) {
 	w.Write(currentPlaying)
 }
 
-func getCurrentPlaying(cookie string, svg bool, darkMode bool, v int) ([]byte, error) {
+func getCurrentPlaying(svg bool, darkMode bool, v int) ([]byte, error) {
+	var CLIENT_ID = os.Getenv("CLIENT_ID")
+	var CLIENT_SECRET = os.Getenv("CLIENT_SECRET")
+	var REFRESH_TOKEN = os.Getenv("REFRESH_TOKEN")
+
 	client := &http.Client{}
-	req, err := http.NewRequest("GET", "https://open.spotify.com/get_access_token", nil)
+	req, err := http.NewRequest("POST", "https://accounts.spotify.com/api/token", strings.NewReader("grant_type=refresh_token&refresh_token="+REFRESH_TOKEN+"&client_id="+CLIENT_ID+"&client_secret="+CLIENT_SECRET))
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	if err != nil {
 		return nil, err
 	}
-	req.Header.Set("cookie", "sp_dc="+cookie)
 	resp, err := client.Do(req)
 	if err != nil {
 		return nil, err
@@ -89,10 +87,8 @@ func getCurrentPlaying(cookie string, svg bool, darkMode bool, v int) ([]byte, e
 
 	defer resp.Body.Close()
 	var respBody struct {
-		AccessToken string `json:"accessToken"`
-		IsAnonymous bool   `json:"isAnonymous"`
+		AccessToken string `json:"access_token"`
 	}
-
 	json.NewDecoder(resp.Body).Decode(&respBody)
 
 	req, _ = http.NewRequest("GET", "https://api.spotify.com/v1/me/player/currently-playing", nil)
